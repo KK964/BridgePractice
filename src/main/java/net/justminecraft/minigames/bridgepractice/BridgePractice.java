@@ -62,12 +62,12 @@ public class BridgePractice extends Minigame implements Listener {
         ItemStack i = new ItemStack(Material.WOOL, color);
         i.setAmount(64);
         d.getScore(" ").setScore(99999);
-        d.getScore(ChatColor.GREEN + "Top Distance").setScore(1);
         d.getScore(ChatColor.AQUA + "Distance").setScore(1);
         d.getScore(ChatColor.YELLOW + "justminecraft.net").setScore(1);
         for(Player p : g.players) {
             TopScore topScore = new TopScore(p, 0);
             int topDistance = topScore.getScore();
+            d.getScore(ChatColor.GREEN + "Top Distance").setScore(topDistance);
             p.setScoreboard(g.scoreboard);
             g.distanceTraveled.put(p, 0);
             g.topDistance.put(p, topDistance);

@@ -27,18 +27,20 @@ public class TopScore {
     }
 
     public int getScore() {
-        String[] parts = getLine();
-        if(parts == null) return 0;
+        String part = getLine();
+        if(part == null) return 0;
+        String[] parts = part.split(",");
         return Integer.parseInt(parts[1]);
     }
 
-    private String[] getLine() {
+    private String getLine() {
         List<String> lines = getLines();
-        if(lines == null) return null;
-        for(String line : lines) {
-            String[] parts = line.split(",");
-            if(parts[0] == uuid.toString())
-                return parts;
+        if(lines.isEmpty()) return null;
+        for(String l : lines) {
+            String[] parts = l.split(",");
+            if(parts[0].equals(uuid.toString())) {
+                return l;
+            }
         }
         return null;
     }
@@ -58,20 +60,26 @@ public class TopScore {
     public void save() {
         List<String> lines = getLines();
         List<String> line = new ArrayList<>();
-        if(lines == null) {
-            System.out.println("is null :I");
+        boolean hasSet = false;
+        if(lines.isEmpty()) {
             line.add(uuid.toString() + "," + score);
         } else {
-            System.out.println("is full :O");
             for(String l : lines) {
                 String[] part = l.split(",");
-                if(part[0] == uuid.toString()) {
-                    line.add(uuid.toString() + "," + score);
+                if(part[0].equals(uuid.toString())) {
+                    hasSet = true;
+                    if(Integer.parseInt(part[1]) < score) {
+                        line.add(uuid.toString() + "," + score);
+                    } else {
+                        line.add(l);
+                    }
                 } else {
                     line.add(l);
                 }
             }
         }
+        if(!hasSet)
+            line.add(uuid.toString() + "," + score);
         try {
             Files.write(new File(BridgePractice.getPlugin().getDataFolder(), SCORES_CSV).toPath(), line);
         } catch (IOException e) {
