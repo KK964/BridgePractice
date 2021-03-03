@@ -18,6 +18,9 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class BridgePractice extends Minigame implements Listener {
@@ -57,9 +60,8 @@ public class BridgePractice extends Minigame implements Listener {
         Objective d = g.scoreboard.registerNewObjective("distance", "dummy");
         d.setDisplaySlot(DisplaySlot.SIDEBAR);
         d.setDisplayName(ChatColor.YELLOW + ChatColor.BOLD.toString() + "Bridge Practice");
-        byte color = (byte) random.nextInt(15);
-        System.out.println(color);
-        ItemStack i = new ItemStack(Material.WOOL, color);
+        int color = random.nextInt(15);
+        ItemStack i = new ItemStack(Material.WOOL, 64, (short) color);
         i.setAmount(64);
         d.getScore(" ").setScore(99999);
         d.getScore(ChatColor.AQUA + "Distance").setScore(1);
