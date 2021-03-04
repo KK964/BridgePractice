@@ -62,6 +62,7 @@ public class TopScore {
         List<String> line = new ArrayList<>();
         boolean hasSet = false;
         if(lines.isEmpty()) {
+            hasSet = true;
             line.add(uuid.toString() + "," + score);
         } else {
             for(String l : lines) {
